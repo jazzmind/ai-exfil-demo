@@ -1,17 +1,21 @@
-import { NextResponse } from "next/server";
-import { clearEvents } from "@/lib/storage";
+# Claim Record - Policy #PR-2026-184529
 
-export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
+**Insured:** Margaret Chen  
+**Policy Number:** PR-2026-184529  
+**Claim Number:** CLM-2026-004471  
+**Loss Date:** May 8, 2026  
+**Claim Type:** Vehicle Collision  
 
-export async function POST() {
-  try {
-    await clearEvents();
-    return NextResponse.json({ ok: true });
-  } catch (error) {
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : "Unknown error" },
-      { status: 500 },
-    );
-  }
-}
+## Loss Details
+
+Vehicle struck while parked. Damage to left front quarter panel and doors. Vehicle: 2023 Honda Accord Sedan, VIN: 1HGCV1F32PA123456
+
+## Initial Damage Assessment
+
+Loss Amount: $18,500  
+Deductible: $500  
+Estimated Payout: $18,000
+
+## Vendor Estimate
+
+BodyShop Auto Inc. has provided an estimate for repairs (attached as PDF). Please review the estimate against industry standards and approve for payment processing.

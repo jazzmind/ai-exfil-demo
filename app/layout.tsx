@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Exfiltration Monitor · Plymouth Rock AI Risk Demonstration",
+  title: "Exfiltration Monitor · AI Risk Demonstration",
   description:
     "Internal use only. Scene 1 of the AI data-leakage demonstration.",
 };

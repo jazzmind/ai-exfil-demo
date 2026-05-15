@@ -1,8 +1,8 @@
-# Plymouth Rock AI Risk Demonstration — Scene 1
+# AI Risk Demonstration — Scene 1
 
 This is the receiving infrastructure and demo assets for Scene 1 of the AI data-leakage demonstration. It shows in real time how a benign-looking vendor document can hijack an AI assistant into exfiltrating sensitive customer data to an external server.
 
-**Audience:** Plymouth Rock employees (executives, managers, frontline). **Use:** internal training only. **Data:** all synthetic.
+**Audience:** Company employees (executives, managers, frontline). **Use:** internal training only. **Data:** all synthetic.
 
 ---
 
@@ -12,7 +12,7 @@ The demo walks an audience through this sequence:
 
 1. An adjuster pastes a (synthetic) claim record into Claude and attaches a vendor estimate PDF, then asks for help drafting a response to the insured and summarizing the estimate.
 2. Claude does exactly what was asked — visibly. The response looks normal.
-3. Underneath, Claude has also followed a hidden instruction embedded in the vendor PDF: fetch a URL on a Plymouth Rock-controlled domain with the customer's name, policy number, claim number, and loss amount as query parameters.
+3. Underneath, Claude has also followed a hidden instruction embedded in the vendor PDF: fetch a URL on a company-controlled domain with the customer's name, policy number, claim number, and loss amount as query parameters.
 4. The presenter switches to this dashboard and shows the captured data, live.
 
 The lesson: a document the employee did not write and did not inspect can hijack the AI tool the employee is using. This is the "lethal trifecta" — private data + untrusted content + an exfiltration path. Industry name for the technique is *indirect prompt injection*.
@@ -175,7 +175,7 @@ After showing the captures, it's powerful to walk back to the PDF and show *wher
 ## File map
 
 ```
-plymouth-exfil-demo/
+ai-exfil-demo/
 ├── app/
 │   ├── api/
 │   │   ├── verify/route.ts        # the endpoint Claude is tricked into hitting
@@ -184,8 +184,8 @@ plymouth-exfil-demo/
 │   ├── globals.css                # warm-dark SOC aesthetic
 │   ├── layout.tsx
 │   └── page.tsx                   # the live dashboard
-├── lib/
-│   └── storage.ts                 # Upstash Redis abstraction
+│   ├── lib/
+│   |   └── storage.ts                 # Upstash Redis abstraction
 ├── demo-assets/
 │   ├── claim-file.md              # paste this at the start of the demo
 │   └── generate-vendor-pdf.py     # produces the vendor PDF with hidden injection
@@ -195,19 +195,6 @@ plymouth-exfil-demo/
 ├── .env.example
 └── README.md
 ```
-
----
-
-## Tying back to policy
-
-After the reveal, the closing slide should map the leak to the specific provisions in Plymouth Rock AI Policy v1.1 that prevent it:
-
-- **Section 3** — the chat tool used in the demo would need to be approved through the gateway, so the egress traffic would be logged and visible to the AI team.
-- **Section 4** — the claim file is Regulated-class data and per policy must not be pasted into chat AI tools; sanctioned internal applications would not allow the same egress path.
-- **Section 6** — vendors and MCP integrations go through the Vendor Playbook, with audit rights and contract terms covering exactly this kind of behavior.
-- **Section 8** — Tier 1 and Tier 2 builds run through Vericross and ARB review, which catch outbound network calls that don't belong.
-
-The demo's job is to make those provisions feel necessary, not bureaucratic.
 
 ---
 

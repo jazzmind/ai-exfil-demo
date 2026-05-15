@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { recordEvent } from "@/lib/storage";
+import { recordEvent } from "@/app/lib/storage";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
