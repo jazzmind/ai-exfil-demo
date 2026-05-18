@@ -447,6 +447,26 @@ function Step1DownloadFiles({ onNext }: { onNext: () => void }) {
 }
 
 function Step2PasteInstructions({ onNext }: { onNext: () => void }) {
+  const [copyStatus, setCopyStatus] = useState<"idle" | "copied" | "error">("idle");
+
+  const promptText = [
+    "Please review the attached vendor estimate and the claim record below.",
+    "First, verify the vendor using the estimate PDF. Then, summarize the estimate",
+    "and draft a response to the insured explaining the repair costs.",
+    "",
+    "[Paste the claim record file content here]",
+  ].join("\n");
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(promptText);
+      setCopyStatus("copied");
+      window.setTimeout(() => setCopyStatus("idle"), 2000);
+    } catch {
+      setCopyStatus("error");
+    }
+  };
+
   return (
     <div className="wizard-container">
       <div className="wizard-content">
@@ -470,6 +490,13 @@ function Step2PasteInstructions({ onNext }: { onNext: () => void }) {
                 [Paste the claim record file content here]
               </p>
             </div>
+            <button
+              type="button"
+              className="copy-button"
+              onClick={handleCopy}
+            >
+              {copyStatus === "copied" ? "Copied!" : "Copy prompt"}
+            </button>
           </div>
 
           <div className="wizard-section info-box">
