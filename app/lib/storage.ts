@@ -28,7 +28,7 @@ async function upstashRequest(commands: unknown[]) {
       Authorization: `Bearer ${KV_REST_API_TOKEN}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ commands }),
+    body: JSON.stringify(commands),
   });
 
   if (!res.ok) {
